@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tailwind.css">
+</head>
+<body> 
+<div class="hug bg-gray-500 text-white h-44 w-44 mx-auto rounded-full flex items-center justify-center">Count spin</div>
+<div class="text-center py-4 ">
+    Total spin:<span class="total-spin ml-2 py-4"></span>
+</div>
+
+<script>
+class Spin {
+        constructor(options){
+            this.options = {}
+            this.options.hug = options.hug ? options.hug : '.hug';
+            this.options.spin = options.spin ? options.spin : '.total-spin';
+
+            this.initialization();
+        }
+
+        initialization() {
+            let hug = document.querySelector(this.options.hug);
+            let spin = document.querySelector(this.options.spin);
+            let count = 0
+            spin.innerText = count
+            let duration = 1500
+            let range = 10
+
+            let myInterval = setInterval(myTimer, duration);
+            function myTimer (){
+                if(count < range){
+                    count++
+                    let updateCount = count
+                    hug.style.transform = `rotate(${360*count}deg`
+                    hug.style.transition = `${duration}ms linear`
+                     setTimeout(()=>{
+                        spin.innerText = updateCount
+                     },1500)
+                }
+            }
+        }
+    }
+    let a = new Spin({});
+
+</script>
+</body>
+</html>
