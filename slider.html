@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="tailwind.css">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
 </head>
 
@@ -18,31 +17,31 @@
                 <div class="w-full px-4">
                     <div class="relative slider flex justify-center items-center">
                         <div class="slider">
-                            <div class="slider-item">
+                            <div class="slider-items">
                                 <div class="item active">
                                     <img src="./image/juice.jpg" alt="" class="object-contain">
-                                    <div class="caption absolute top-1/2 text-center w-full ">
+                                    <div class="caption absolute top-1/2 text-center w-full -mt-5 ">
                                         <h1 class="text-3xl font-bold">Slide - 1</h1>
                                     </div>
                                 </div>
                                 <div class="item  hidden">
                                     <img src="./image/juice.jpg" alt="" class="object-contain">
-                                    <div class="caption absolute top-1/2 text-center w-full ">
+                                    <div class="caption absolute top-1/2 text-center w-full  -mt-5">
                                         <h1 class="text-3xl font-bold">Slide - 1</h1>
                                     </div>
                                 </div>
                                 <div class="item hidden ">
                                     <img src="./image/juice.jpg" alt="" class="object-contain">
-                                    <div class="caption absolute top-1/2 text-center w-full ">
+                                    <div class="caption absolute top-1/2 text-center w-full -mt-5 ">
                                         <h1 class="text-3xl font-bold">Slide - 1</h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="slider-button">
                                 <div class="absolute top-1/3 w-full mt-6  flex justify-between">
-                                    <div class="next-button">
+                                    <div class="left-slide">
                                         <div
-                                            class="flex items-center bg-white w-16 h-16 text-black justify-center">
+                                            class="flex items-center bg-green-400 w-16 h-16 hover:bg-green-600 text-white cursor-pointer justify-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,9 +49,9 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="previews-button">
+                                    <div class="right-slide">
                                         <div
-                                            class="flex items-center bg-white w-16 h-16 text-black justify-center">
+                                            class="flex items-center bg-green-400 mr-1 w-16 h-16 hover:bg-green-600 text-white cursor-pointer justify-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -70,38 +69,53 @@
     </div>
 
     <script>
-        class Spin {
+        class Slider {
             constructor(options) {
                 this.options = {}
-                this.options.hug = options.hug ? options.hug : '.hug';
-                this.options.spin = options.spin ? options.spin : '.total-spin';
-
-                this.initialization();
+                this.options.items = options.items ? options.items : '.item';
+                this.options.next = options.next ? options.next : '.left-slide';
+                this.options.preview = options.preview ? options.preview : '.right-slide';
+                this.slide();
             }
 
-            initialization() {
-                let hug = document.querySelector(this.options.hug);
-                let spin = document.querySelector(this.options.spin);
-                let count = 0
-                spin.innerText = count
-                let duration = 1500
-                let range = 10
-
-                let myInterval = setInterval(myTimer, duration);
-                function myTimer() {
-                    if (count < range) {
-                        count++
-                        let updateCount = count
-                        hug.style.transform = `rotate(${360 * count}deg`
-                        hug.style.transition = `${duration}ms linear`
-                        setTimeout(() => {
-                            spin.innerText = updateCount
-                        }, 1500)
+            slide() {
+                let items = document.querySelector(this.options.items);
+                let totalSlides = items.length;
+                let index = 0;
+                let nextbtn = document.querySelector(this.options.next);
+                let prebtn = document.querySelector(this.options.preview);
+                nextbtn.onclick = function () {
+                    next("next");
+                }
+                prebtn.onclick = function () {
+                    next("pre");
+                }
+                function next(direction) {
+                    if (direction == "next") {
+                        index++;
+                        if (index == totalSlides) {
+                            index = 0;
+                        }
+                    }
+                    else {
+                        if (index == 0) {
+                            index = totalSlides - 1;
+                        }
+                        else {
+                            index--;
+                        }
                     }
                 }
+                for ( let i = 0; i < items.length; i++) {                    
+                    console.log(items);
+                }
+                
+
+
+
             }
         }
-        let a = new Spin({});
+        let a = new Slider({});
 
     </script>
 </body>
