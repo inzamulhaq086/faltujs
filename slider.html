@@ -79,44 +79,20 @@
             }
 
             slide() {
-                let items = document.querySelector(this.options.items);
-                let totalSlides = items.length;
+                let items = document.querySelectorAll(this.options.items);
                 let index = 0;
                 let nextbtn = document.querySelector(this.options.next);
-                let prebtn = document.querySelector(this.options.preview);
-                nextbtn.onclick = function () {
-                    next("next");
-                }
-                prebtn.onclick = function () {
-                    next("pre");
-                }
-                function next(direction) {
-                    if (direction == "next") {
-                        index++;
-                        if (index == totalSlides) {
-                            index = 0;
-                        }
-                    }
-                    else {
-                        if (index == 0) {
-                            index = totalSlides - 1;
-                        }
-                        else {
-                            index--;
-                        }
-                    }
-                }
-                for ( let i = 0; i < items.length; i++) {                    
-                    console.log(items);
-                }
+                let prevbtn = document.querySelector(this.options.preview);
+                nextbtn.addEventListener("click", function(){
+                   index++                
+                })
                 
-
-
-
+                prevbtn.addEventListener("click", function(){
+                    alert(1)
+                })
             }
         }
         let a = new Slider({});
-
     </script>
 </body>
 
